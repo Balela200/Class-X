@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag(doorTag) && hasKey)
         {
             Debug.Log("Door unlocked! Moving to the next scene...");
-            SceneManager.LoadScene("NextScene");
+            SceneManager.LoadScene("Win");
         }
     }
 
