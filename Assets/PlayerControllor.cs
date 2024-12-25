@@ -38,6 +38,21 @@ public class PlayerControllor : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         cam = Camera.main;
+
+        Cursor.lockState = CursorLockMode.Locked;
+
+        //if Player Input ESC Show the Cursor
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    Cursor.lockState = CursorLockMode.None;
+        //}
+        //else if (Cursor.lockState == CursorLockMode.None)
+        //{
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        Cursor.lockState = CursorLockMode.Locked;
+        //    }
+        //}
     }
 
     void Update()
@@ -116,6 +131,8 @@ public class PlayerControllor : MonoBehaviour
 
     void RayPlayer()
     {
+        bool isPageOpen = AddComponentUI.activeSelf;
+
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         ray.origin = cam.transform.position;
 
@@ -123,9 +140,18 @@ public class PlayerControllor : MonoBehaviour
         {
             if (hit.collider.CompareTag("PC"))
             {
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    AddComponentUI.SetActive(true);
+                    if (isPageOpen)
+                    {
+                        AddComponentUI.SetActive(false);
+                        Cursor.lockState = CursorLockMode.Locked;
+                    }
+                    else
+                    {
+                        AddComponentUI.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                    }
                 }
             }
         }
