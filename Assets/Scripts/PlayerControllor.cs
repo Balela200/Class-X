@@ -29,6 +29,8 @@ public class PlayerControllor : MonoBehaviour
 
     [Header("Hant 1")]
     public bool canMove = false;
+    bool canMoveUI = true;
+    bool canCamera = true;
 
     [Header("Input Fields")]
     public TMP_InputField inputField1;
@@ -65,7 +67,7 @@ public class PlayerControllor : MonoBehaviour
         CameraPlayer();
 
         // Player movement happens only if `canMove` is true
-        if (canMove)
+        if (canMove && canMoveUI)
         {
             MovementPlayer();
         }
@@ -111,23 +113,30 @@ public class PlayerControllor : MonoBehaviour
 
     void CameraPlayer()
     {
-        // Always allow camera movement
-        mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
-
-        // Rotate player horizontally with mouse movement
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
-
-        // Rotate camera vertically with mouse movement
-        verticalRotation += mouseInput.y;
-        verticalRotation = Mathf.Clamp(verticalRotation, -60f, 60f);
-
-        if (invertLook)
+        if (canCamera)
         {
-            viewPoint.rotation = Quaternion.Euler(verticalRotation, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+            // Always allow camera movement
+            mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
+
+            // Rotate player horizontally with mouse movement
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
+
+            // Rotate camera vertically with mouse movement
+            verticalRotation += mouseInput.y;
+            verticalRotation = Mathf.Clamp(verticalRotation, -60f, 60f);
+
+            if (invertLook)
+            {
+                viewPoint.rotation = Quaternion.Euler(verticalRotation, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+            }
+            else
+            {
+                viewPoint.rotation = Quaternion.Euler(-verticalRotation, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+            }
         }
         else
         {
-            viewPoint.rotation = Quaternion.Euler(-verticalRotation, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+            Debug.Log("No");
         }
     }
 
@@ -150,6 +159,9 @@ public class PlayerControllor : MonoBehaviour
                         Cursor.lockState = CursorLockMode.Locked;
 
                         rayImage.SetActive(true);
+
+                        canMoveUI = true;
+                        canCamera = true;
                     }
                     else
                     {
@@ -157,6 +169,9 @@ public class PlayerControllor : MonoBehaviour
                         Cursor.lockState = CursorLockMode.None;
 
                         rayImage.SetActive(false);
+
+                        canMoveUI = false;
+                        canCamera = false;
                     }
                 }
             }
