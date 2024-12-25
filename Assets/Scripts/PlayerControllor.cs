@@ -34,6 +34,8 @@ public class PlayerControllor : MonoBehaviour
     public TMP_InputField inputField1;
     public TMP_InputField inputField2;
 
+    public GameObject rayImage;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -146,11 +148,15 @@ public class PlayerControllor : MonoBehaviour
                     {
                         AddComponentUI.SetActive(false);
                         Cursor.lockState = CursorLockMode.Locked;
+
+                        rayImage.SetActive(true);
                     }
                     else
                     {
                         AddComponentUI.SetActive(true);
                         Cursor.lockState = CursorLockMode.None;
+
+                        rayImage.SetActive(false);
                     }
                 }
             }

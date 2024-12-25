@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AddComponent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject Win;
+    public void Exit()
     {
-        
+        Application.Quit();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void  WinBot()
     {
-        
+        bool isPageOpen = Win.activeSelf;
+
+        if (isPageOpen)
+        {
+            Win.SetActive(false);
+        }
+        else
+        {
+            Win.SetActive(true);
+        }
     }
 }
