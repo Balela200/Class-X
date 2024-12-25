@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; // Required for TMP_InputField
 
 public class PlayerControllor : MonoBehaviour
 {
@@ -10,18 +11,17 @@ public class PlayerControllor : MonoBehaviour
     private float activeMoveSpeed;
     Vector3 Movement;
 
-    // gravitiy
+    // Gravity
     public float gravitiyMod = 2.5f;
 
     [Header("Camera System")]
     [SerializeField] private Transform viewPoint;
     public float mouseSensitivity = 1f;
     private float verticalRotation;
-    private Vector2 mouseInput; // Input mouse for look at right and up
+    private Vector2 mouseInput;
 
     public bool invertLook;
 
-    [Header("Camera System")]
     private Camera cam;
 
     [Header("UI")]
@@ -30,35 +30,43 @@ public class PlayerControllor : MonoBehaviour
     [Header("Hant 1")]
     public bool canMove = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Input Fields")]
+    public TMP_InputField inputField1;
+    public TMP_InputField inputField2;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-
         cam = Camera.main;
-
-        //Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        MovementPlayer();
-        CameraPlayer();
-        RayPlayer();
+        CheckInputFields(); // Check the input field values
 
-        // if Player Input ESC Show the Cursor
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //}
-        //else if (Cursor.lockState == CursorLockMode.None)
-        //{
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-        //        Cursor.lockState = CursorLockMode.Locked;
-        //    }
-        //}
+        // Camera movement is always active
+        CameraPlayer();
+
+        // Player movement happens only if `canMove` is true
+        if (canMove)
+        {
+            MovementPlayer();
+        }
+
+        RayPlayer();
+    }
+
+    void CheckInputFields()
+    {
+        // Activate canMove if the input fields contain the correct text
+        if (inputField1.text == "Horizontal" && inputField2.text == "Vertical")
+        {
+            canMove = true;
+        }
+        else
+        {
+            canMove = false;
+        }
     }
 
     void MovementPlayer()
@@ -66,7 +74,6 @@ public class PlayerControllor : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        // Run Speed
         if (Input.GetKey(KeyCode.LeftShift))
         {
             activeMoveSpeed = runSpeed;
@@ -80,25 +87,21 @@ public class PlayerControllor : MonoBehaviour
         Movement = ((transform.forward * vertical) + (transform.right * horizontal)).normalized * activeMoveSpeed;
         Movement.y = yVel;
 
-        // Add gravity
         Movement.y += Physics.gravity.y * Time.deltaTime * gravitiyMod;
 
-        if(canMove)
-        {
-            characterController.Move(Movement * Time.deltaTime);
-        }
+        characterController.Move(Movement * Time.deltaTime);
     }
 
     void CameraPlayer()
     {
-        // Input 
+        // Always allow camera movement
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
 
-        // Making the player camera move on the Y and X axes
+        // Rotate player horizontally with mouse movement
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
 
+        // Rotate camera vertically with mouse movement
         verticalRotation += mouseInput.y;
-        // Up 60 Dwon -60 
         verticalRotation = Mathf.Clamp(verticalRotation, -60f, 60f);
 
         if (invertLook)
@@ -118,9 +121,9 @@ public class PlayerControllor : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if(hit.collider.CompareTag("PC"))
+            if (hit.collider.CompareTag("PC"))
             {
-                if(Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.E))
                 {
                     AddComponentUI.SetActive(true);
                 }
@@ -130,7 +133,6 @@ public class PlayerControllor : MonoBehaviour
 
     private void LateUpdate()
     {
-        // The Camera follw the viewPoint
         cam.transform.position = viewPoint.position;
         cam.transform.rotation = viewPoint.rotation;
     }
