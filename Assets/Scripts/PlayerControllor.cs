@@ -38,6 +38,9 @@ public class PlayerControllor : MonoBehaviour
 
     public GameObject rayImage;
 
+    [Header("Audio")]
+    public AudioSource OnPc;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -172,6 +175,8 @@ public class PlayerControllor : MonoBehaviour
 
                         canMoveUI = false;
                         canCamera = false;
+
+                        OnPc.Play();
                     }
                 }
             }
