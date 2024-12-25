@@ -3024,7 +3024,7 @@ MonoBehaviour:
   inputField1: {fileID: 406782582}
   inputField2: {fileID: 440517487}
   rayImage: {fileID: 934809634}
-  OnPc: {fileID: 0}
+  OnPc: {fileID: 1155936878}
 --- !u!143 &374999784
 CharacterController:
   m_ObjectHideFlags: 0
@@ -13528,7 +13528,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b16d710db3a2aef48a5f2aa86deb8a4b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -15810,6 +15810,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1400890155}
+    - targetCorrespondingSourceObject: {fileID: 3019568617730713240, guid: 5dd5a1ab6047d4848b7668734815016f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1400890160}
   m_SourcePrefab: {fileID: 100100000, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
 --- !u!1 &1400890154 stripped
 GameObject:
@@ -15859,6 +15863,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.058462232, y: 0.1305755, z: 0.0053812414}
   m_Center: {x: 0.00024982356, y: -0.0011685342, z: 0}
+--- !u!54 &1400890160
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400890154}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1406345776
 GameObject:
   m_ObjectHideFlags: 0
