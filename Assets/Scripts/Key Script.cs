@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Door unlocked! Moving to the next scene...");
             SceneManager.LoadScene("Win");
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 

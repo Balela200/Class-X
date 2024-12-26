@@ -42,5 +42,6 @@ public class CountdownTimer : MonoBehaviour
     {
         // Replace "Lose" with the name of your Lose scene
         SceneManager.LoadScene("Lose");
+        Cursor.lockState = CursorLockMode.None;
     }
 }
