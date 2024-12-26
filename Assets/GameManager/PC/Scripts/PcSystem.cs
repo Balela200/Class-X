@@ -14,8 +14,13 @@ public class PcSystem : MonoBehaviour
     public GameObject VisualStudioOn;
     public GameObject VisualStudioOff;
 
+    public GameObject VLCApp;
+    public GameObject VLCOn;
+    public GameObject VLCOff;
+
     bool isUnity;
     bool isVisualStudio;
+    bool isVLC;
     [Header("Date")]
     public TMP_Text dateText; 
     public TMP_Text timeText;
@@ -24,7 +29,7 @@ public class PcSystem : MonoBehaviour
         TimeForThisPc();
 
         // App
-        if(isUnity)
+        if (isUnity)
         {
             UnityAppOn.SetActive(true);
             UnityAppOff.SetActive(false);
@@ -39,7 +44,7 @@ public class PcSystem : MonoBehaviour
             UnityApp.SetActive(false);
         }
 
-        if(isVisualStudio)
+        if (isVisualStudio)
         {
             VisualStudioOn.SetActive(true);
             VisualStudioOff.SetActive(false);
@@ -52,6 +57,21 @@ public class PcSystem : MonoBehaviour
             VisualStudioOff.SetActive(true);
 
             VisualStudioApp.SetActive(false);
+        }
+
+        if (isVLC)
+        { 
+            VLCOn.SetActive(true);
+            VLCOff.SetActive(false);
+
+            VLCApp.SetActive(true);
+        }
+        else
+        {
+            VLCOn.SetActive(false);
+            VLCOff.SetActive(true);
+
+            VLCApp.SetActive(false);
         }
     }
 
@@ -77,6 +97,8 @@ public class PcSystem : MonoBehaviour
         isUnity = true;
 
         isVisualStudio = false;
+
+        isVLC = false;
     }
 
     public void VisualStudio()
@@ -84,5 +106,16 @@ public class PcSystem : MonoBehaviour
         isUnity = false;
 
         isVisualStudio = true;
+
+        isVLC = false;
+    }
+
+    public void VLC()
+    {
+        isUnity = false;
+
+        isVisualStudio = false;
+
+        isVLC = true;
     }
 }
