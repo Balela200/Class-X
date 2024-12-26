@@ -154,7 +154,7 @@ public class PlayerControllor : MonoBehaviour
         {
             if (hit.collider.CompareTag("PC"))
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.G))
                 {
                     if (isPageOpen)
                     {
