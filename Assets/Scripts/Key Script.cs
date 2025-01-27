@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string doorTag = "Door"; // Default value
     [SerializeField] private TMP_InputField keyInputField; // TMP Input Field for Key Tag
     [SerializeField] private TMP_InputField doorInputField; // TMP Input Field for Door Tag
+
+    public AudioSource KeyAudio;
+
     private bool hasKey = false;
 
     private void Start()
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
             hasKey = true;
             Destroy(other.gameObject);
             Debug.Log("Key picked up!");
+
+            KeyAudio.Play();
         }
 
         // Check if the collider has the Door tag and the player has the key

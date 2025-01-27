@@ -5,6 +5,8 @@ public class ToggleGameObjects : MonoBehaviour
 {
     public GameObject[] gameObjects; // Array of GameObjects to toggle
     public TMP_InputField textField; // Reference to the TMP Input Field
+    public GameObject G1;
+    public GameObject GVR;
 
     private bool isActive = false;
 
@@ -22,6 +24,21 @@ public class ToggleGameObjects : MonoBehaviour
                 {
                     obj.SetActive(isActive);
                 }
+
+                G1.SetActive(true);
+                GVR.SetActive(false);
+            }
+            bool isPageOpen = gameObjects[0].activeSelf;
+
+            if (isPageOpen)
+            {
+                G1.SetActive(false);
+                GVR.SetActive(true);
+            }
+            else
+            {
+                G1.SetActive(true);
+                GVR.SetActive(false);
             }
         }
     }
