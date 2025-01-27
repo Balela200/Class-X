@@ -5,7 +5,14 @@ using UnityEngine.UI;
 
 public class AddComponent : MonoBehaviour
 {
+    public static AddComponent addComponent;
+    public Animator anim;
     public GameObject Win;
+
+    private void Start()
+    {
+        addComponent = this;
+    }
     public void Exit()
     {
         Application.Quit();
@@ -17,7 +24,8 @@ public class AddComponent : MonoBehaviour
 
         if (isPageOpen)
         {
-            Win.SetActive(false);
+            //Win.SetActive(false);
+            anim.SetTrigger("Closing");
         }
         else
         {
